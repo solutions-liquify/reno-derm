@@ -65,7 +65,7 @@ export function Hero() {
             Now open in Gota, Ahmedabad
           </motion.div>
 
-          <h1 className="mt-5 font-display text-[2.6rem] leading-[1.04] tracking-[-0.02em] text-ink sm:text-[3.4rem] lg:text-[3.9rem] xl:text-[4.5rem]">
+          <h1 className="mt-5 font-sans font-semibold text-[2.6rem] leading-[1.04] tracking-[-0.03em] text-ink sm:text-[3.4rem] lg:text-[3.9rem] xl:text-[4.5rem]">
             {lines.map((l, i) => (
               <span key={l.text} className="block overflow-hidden pb-[0.08em]">
                 <motion.span
