@@ -1,16 +1,17 @@
 const items = [
-  "Acne & scars",
-  "PRP therapy",
-  "Chronic kidney disease",
+  "Acne & acne scars",
+  "Botox & dermal fillers",
+  "Kidney disease",
   "Chemical peels",
-  "Dialysis care",
-  "Melasma",
-  "Hypertension",
-  "Hair loss",
-  "Kidney transplant",
-  "Nail surgery",
-  "Skin boosters",
-  "Glomerular disease",
+  "Dialysis & transplant consultation",
+  "Pigmentation & melasma",
+  "Diabetes & hypertension",
+  "Hair & scalp disorders",
+  "Kidney stones",
+  "Nail & vitiligo surgery",
+  "PRP & microneedling",
+  "Thyroid disorders",
+  "Preventive health check-ups",
 ];
 
 export function Marquee() {
