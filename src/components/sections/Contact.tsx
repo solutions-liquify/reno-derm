@@ -3,20 +3,12 @@
 import Image from "next/image";
 import { Clock, Mail, MapPin, MessageCircle, Navigation, Phone, QrCode } from "lucide-react";
 import { InstagramIcon as Instagram } from "@/components/ui/InstagramIcon";
-import { useSyncExternalStore } from "react";
 import { brand, clinic } from "@/data/clinic";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 
 export function Contact() {
-  // Resolved on the client only, so server and client markup always match.
-  const today = useSyncExternalStore(
-    () => () => {},
-    () => new Date().toLocaleDateString("en-IN", { weekday: "long", timeZone: "Asia/Kolkata" }),
-    () => ""
-  );
-
   return (
     <section id="contact" className="relative py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
@@ -75,25 +67,24 @@ export function Contact() {
                 <div className="w-full">
                   <h3 className="font-semibold text-ink">Hours</h3>
                   <ul className="mt-2 divide-y divide-line text-sm">
-                    {clinic.hours.weekly.map((h) => (
-                      <li
-                        key={h.day}
-                        className={`flex items-center justify-between py-1.5 ${h.day === today ? "font-semibold text-teal-800" : "text-ink-soft"}`}
-                      >
-                        <span className="flex items-center gap-2">
-                          {h.day}
-                          {h.day === today && (
-                            <span className="rounded-full bg-teal-50 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-teal-700 ring-1 ring-teal-100">
-                              Today
-                            </span>
-                          )}
+                    {clinic.hours.schedule.map((h) => (
+                      <li key={h.doctor} className="flex items-center justify-between gap-4 py-2">
+                        <span>
+                          <span className="block font-semibold text-ink">{h.doctor}</span>
+                          <span className="block text-xs text-muted">
+                            {h.speciality} · {h.days}
+                          </span>
                         </span>
-                        <span>{h.time}</span>
+                        <span className="shrink-0 font-semibold text-teal-800">{h.time}</span>
                       </li>
                     ))}
+                    <li className="flex items-center justify-between gap-4 py-2 text-ink-soft">
+                      <span>Sunday</span>
+                      <span className="shrink-0">{clinic.hours.sunday}</span>
+                    </li>
                   </ul>
                   <p className="mt-3 rounded-xl bg-apricot-50 px-3 py-2 text-xs leading-relaxed text-apricot-600 ring-1 ring-apricot-100">
-                    Doctor consultations {clinic.hours.consultation}. {clinic.hours.note}
+                    {clinic.hours.note}
                   </p>
                 </div>
               </div>

@@ -29,18 +29,26 @@ export const clinic = {
     "https://wa.me/919426687022?text=Hi%2C%20I%20would%20like%20to%20book%20an%20appointment%20at%20RenoDerm.",
   email: "drvyoma95@gmail.com",
   hours: {
-    clinic: "10:00 AM – 8:00 PM, all 7 days",
-    consultation: "5:00 PM – 8:00 PM",
-    note: "Consultations by prior appointment. Call or WhatsApp to confirm a slot.",
-    weekly: [
-      { day: "Monday", time: "10:00 AM – 8:00 PM" },
-      { day: "Tuesday", time: "10:00 AM – 8:00 PM" },
-      { day: "Wednesday", time: "10:00 AM – 8:00 PM" },
-      { day: "Thursday", time: "10:00 AM – 8:00 PM" },
-      { day: "Friday", time: "10:00 AM – 8:00 PM" },
-      { day: "Saturday", time: "10:00 AM – 8:00 PM" },
-      { day: "Sunday", time: "10:00 AM – 8:00 PM" },
+    clinic: "Mon – Sat, 3:30 PM – 8:00 PM · Sunday by appointment",
+    note: "Sunday consultations are on an appointment basis. Call or WhatsApp to confirm a slot.",
+    /** Per-doctor consulting hours, Monday to Saturday. */
+    schedule: [
+      {
+        doctor: "Dr. Vyoma Mehta Dholakia",
+        speciality: "Dermatology",
+        days: "Mon – Sat",
+        time: "3:30 PM – 8:00 PM",
+        short: "Mon–Sat · 3:30–8 PM",
+      },
+      {
+        doctor: "Dr. Akash Dholakia",
+        speciality: "Nephrology",
+        days: "Mon – Sat",
+        time: "6:00 PM – 8:00 PM",
+        short: "Mon–Sat · 6–8 PM",
+      },
     ],
+    sunday: "Appointment basis",
   },
   rating: { value: 5.0, count: 29, source: "Google" },
   maps: {
@@ -167,7 +175,7 @@ export const stats = [
   { value: 5.0, suffix: "", label: "Google rating", decimals: 1 },
   { value: 29, suffix: "+", label: "Five-star reviews", decimals: 0 },
   { value: 2, suffix: "", label: "Specialists, one roof", decimals: 0 },
-  { value: 7, suffix: " days", label: "Open every week", decimals: 0 },
+  { value: 6, suffix: " days", label: "A week, Sundays by appointment", decimals: 0 },
 ];
 
 export type Review = { name: string; when: string; text: string; tag: string };
@@ -226,7 +234,7 @@ export const reviews: Review[] = [
 export const faqs = [
   {
     q: "Do I need an appointment?",
-    a: "Yes, consultations run 5:00 PM to 8:00 PM by prior appointment. Call or WhatsApp us and we will confirm a slot, usually the same or next day.",
+    a: "Yes. Dr. Vyoma (dermatology) consults Monday to Saturday, 3:30 PM to 8:00 PM, and Dr. Akash (nephrology) Monday to Saturday, 6:00 PM to 8:00 PM. Sundays are on an appointment basis. Call or WhatsApp us and we will confirm a slot, usually the same or next day.",
   },
   {
     q: "Can I see both doctors in one visit?",

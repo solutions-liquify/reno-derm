@@ -1,9 +1,10 @@
 "use client";
 
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
-import { ArrowRight, Clock, MapPin, Star } from "lucide-react";
+import { Clock, MapPin, Navigation, Star } from "lucide-react";
+import { InstagramIcon as Instagram } from "@/components/ui/InstagramIcon";
 import { type MouseEvent } from "react";
-import { clinic } from "@/data/clinic";
+import { clinic, doctors } from "@/data/clinic";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -96,12 +97,12 @@ export function Hero() {
             transition={{ duration: 0.8, ease, delay: 1 }}
             className="mt-7 flex flex-wrap items-center gap-3"
           >
-            <MagneticButton href={clinic.whatsapp} external>
-              Book an appointment
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </MagneticButton>
-            <MagneticButton href="#services" variant="secondary">
+            <MagneticButton href="#services">
               Explore treatments
+            </MagneticButton>
+            <MagneticButton href={clinic.maps.directions} variant="secondary" external>
+              <Navigation className="h-4 w-4" />
+              Get directions
             </MagneticButton>
           </motion.div>
 
@@ -125,14 +126,54 @@ export function Hero() {
             <li className="hidden h-4 w-px bg-line sm:block" aria-hidden="true" />
             <li className="flex items-center gap-2">
               <Clock className="h-4 w-4 text-teal-600" />
-              Consultations {clinic.hours.consultation}
-            </li>
-            <li className="hidden h-4 w-px bg-line sm:block" aria-hidden="true" />
-            <li className="flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-teal-600" />
-              {clinic.address.area}, {clinic.address.city}
+              Mon – Sat, 3:30 – 8 PM · Sunday by appointment
             </li>
           </motion.ul>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1.35 }}
+            className="mt-5 space-y-3 text-sm text-ink-soft"
+          >
+            <a
+              href={clinic.maps.directions}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex max-w-xl items-start gap-2.5 rounded-xl border border-line bg-white/70 px-4 py-3 backdrop-blur transition-colors hover:border-teal-300 hover:bg-white"
+            >
+              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-teal-600" />
+              <span>
+                <span className="block font-semibold text-ink">{clinic.address.full}</span>
+                <span className="link-underline mt-0.5 inline-block text-xs text-teal-700 group-hover:text-teal-800">
+                  Open in Google Maps
+                </span>
+              </span>
+            </a>
+            <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
+              <span className="inline-flex items-center gap-1.5">
+                <Instagram className="h-4 w-4 text-teal-600" />
+                For more details, visit us on Instagram:
+              </span>
+              <a
+                href={clinic.social.instagramClinic}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-underline font-semibold text-ink hover:text-teal-800"
+              >
+                @renodermclinic
+              </a>
+              <span aria-hidden="true">·</span>
+              <a
+                href={clinic.social.instagramDoctor}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-underline font-semibold text-ink hover:text-teal-800"
+              >
+                @drvyoma_dermatologist
+              </a>
+            </p>
+          </motion.div>
         </div>
 
         {/* visual */}
@@ -162,32 +203,30 @@ export function Hero() {
                         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-300 opacity-75" />
                         <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-300" />
                       </span>
-                      Open today · 10 AM – 8 PM
+                      Mon – Sat · 3:30 – 8 PM
                     </span>
                   </div>
 
                   <div className="relative mt-5 space-y-4">
-                    <SpecialistRow
-                      initials="VM"
-                      name="Dr. Vyoma Mehta Dholakia"
-                      role="Dermatologist · M.D. (Skin & V.D.)"
-                      tone="apricot"
-                      delay={0.9}
-                    />
-                    <div className="h-px w-full bg-white/15" />
-                    <SpecialistRow
-                      initials="AD"
-                      name="Dr. Akash Dholakia"
-                      role="Nephrologist · MD, DrNB"
-                      tone="teal"
-                      delay={1.0}
-                    />
+                    {doctors.map((d, i) => (
+                      <div key={d.slug}>
+                        {i > 0 && <div className="mb-4 h-px w-full bg-white/15" />}
+                        <SpecialistRow
+                          initials={d.initials}
+                          name={d.name}
+                          degrees={d.degrees}
+                          hours={clinic.hours.schedule[i]?.short}
+                          tone={d.speciality === "Dermatology" ? "apricot" : "teal"}
+                          delay={0.9 + i * 0.1}
+                        />
+                      </div>
+                    ))}
                   </div>
 
                   <div className="relative mt-6 grid grid-cols-3 gap-2.5 text-center">
                     <MiniStat label="Rating" value="5.0" delay={1.1} />
                     <MiniStat label="Reviews" value="29+" delay={1.18} />
-                    <MiniStat label="Days open" value="7" delay={1.26} />
+                    <MiniStat label="Sunday" value="By appt" delay={1.26} />
                   </div>
                 </div>
               </div>
@@ -241,13 +280,15 @@ export function Hero() {
 function SpecialistRow({
   initials,
   name,
-  role,
+  degrees,
+  hours,
   tone,
   delay,
 }: {
   initials: string;
   name: string;
-  role: string;
+  degrees: string;
+  hours?: string;
   tone: "apricot" | "teal";
   delay: number;
 }) {
@@ -256,7 +297,7 @@ function SpecialistRow({
       initial={{ opacity: 0, x: -10 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.6, ease, delay }}
-      className="flex items-center gap-4"
+      className="flex items-start gap-4"
     >
       <div
         className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl font-display text-base ${
@@ -266,8 +307,11 @@ function SpecialistRow({
         {initials}
       </div>
       <div className="min-w-0">
-        <p className="truncate text-[15px] font-semibold leading-tight">{name}</p>
-        <p className="truncate text-xs text-teal-100/90">{role}</p>
+        <p className="text-[15px] font-semibold leading-tight">{name}</p>
+        <p className="mt-1 text-xs leading-snug text-teal-100/90">
+          {degrees}
+          {hours && <span className="text-teal-200/80"> · {hours}</span>}
+        </p>
       </div>
     </motion.div>
   );
