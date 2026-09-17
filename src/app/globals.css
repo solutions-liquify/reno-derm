@@ -1,26 +1,173 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:where(.dark, .dark *));
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@theme {
+  /* Brand palette: renal teal + skin-warm apricot on a warm paper background */
+  --color-ink: #10221f;
+  --color-ink-soft: #3d504c;
+  --color-muted: #6b7a77;
+  --color-paper: #f8f6f1;
+  --color-paper-2: #f1ede4;
+  --color-line: #e3ded3;
+  --color-white: #ffffff;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --color-teal-50: #ecf8f5;
+  --color-teal-100: #d3efe8;
+  --color-teal-200: #a6ded2;
+  --color-teal-300: #6dc5b4;
+  --color-teal-400: #3aa693;
+  --color-teal-500: #1f8b79;
+  --color-teal-600: #166f62;
+  --color-teal-700: #135950;
+  --color-teal-800: #10473f;
+  --color-teal-900: #0d3833;
+
+  --color-apricot-50: #fff4ec;
+  --color-apricot-100: #ffe5d3;
+  --color-apricot-200: #ffc9a6;
+  --color-apricot-300: #ffa872;
+  --color-apricot-400: #f98a4c;
+  --color-apricot-500: #e86f2e;
+  --color-apricot-600: #c95a21;
+
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), Georgia, serif;
+
+  --shadow-soft: 0 1px 2px rgb(16 34 31 / 0.04), 0 8px 24px -8px rgb(16 34 31 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(16 34 31 / 0.05), 0 24px 48px -16px rgb(16 34 31 / 0.22);
+  --shadow-glow: 0 0 0 1px rgb(31 139 121 / 0.15), 0 18px 40px -12px rgb(31 139 121 / 0.35);
+
+  --radius-xl2: 1.25rem;
+  --radius-xl3: 1.75rem;
+
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-pulse-ring: pulse-ring 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-14px) rotate(1.5deg); }
+  }
+  @keyframes pulse-ring {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(1.9); opacity: 0; }
   }
 }
 
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+  overflow-x: clip;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: clip;
+  max-width: 100vw;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-teal-200);
+  color: var(--color-ink);
+}
+
+/* Decorative grain overlay */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Hairline dotted grid used behind hero / sections */
+.dot-grid {
+  background-image: radial-gradient(rgb(16 34 31 / 0.10) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Text gradient */
+.text-gradient {
+  background: linear-gradient(100deg, var(--color-teal-600), var(--color-teal-400) 45%, var(--color-apricot-400));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Pill/kicker */
+.kicker {
+  @apply inline-flex items-center gap-2 rounded-full border border-line bg-white/70 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-teal-700 backdrop-blur;
+}
+
+/* Card spotlight: driven by --mx / --my set in JS */
+.spotlight {
+  position: relative;
+  overflow: hidden;
+}
+.spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    rgb(31 139 121 / 0.14),
+    transparent 60%
+  );
+}
+.spotlight:hover::after {
+  opacity: 1;
+}
+
+/* Underline link animation */
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 1.5px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.link-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.marquee-mask {
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
