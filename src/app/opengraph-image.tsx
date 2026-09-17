@@ -1,11 +1,16 @@
 import { ImageResponse } from "next/og";
-import { clinic } from "@/data/clinic";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+import { brand, clinic } from "@/data/clinic";
 
 export const alt = clinic.fullName;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OpenGraphImage() {
+export default async function OpenGraphImage() {
+  const markData = await readFile(join(process.cwd(), "public", brand.logoMark.src), "base64");
+  const markSrc = `data:image/png;base64,${markData}`;
+
   return new ImageResponse(
     (
       <div
@@ -21,26 +26,28 @@ export default function OpenGraphImage() {
           fontFamily: "Georgia, serif",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 22 }}>
           <div
             style={{
-              width: 64,
-              height: 64,
-              borderRadius: 18,
-              background: "#1f8b79",
+              width: 92,
+              height: 92,
+              borderRadius: 999,
+              background: "#ffffff",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              fontSize: 34,
-              color: "white",
             }}
           >
-            R
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={markSrc} alt="" width={64} height={56} />
           </div>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ fontSize: 34 }}>RenoDerm</div>
-            <div style={{ fontSize: 16, letterSpacing: 5, color: "#a6ded2", textTransform: "uppercase" }}>
-              Kidney & Skin Clinic
+            <div style={{ display: "flex", fontSize: 40 }}>
+              <span style={{ color: "#a6ded2" }}>Reno</span>
+              <span style={{ color: "#e0a42a" }}>Derm</span>
+            </div>
+            <div style={{ fontSize: 16, letterSpacing: 5, color: "#d3efe8", textTransform: "uppercase" }}>
+              Kidney and Skin Clinic
             </div>
           </div>
         </div>

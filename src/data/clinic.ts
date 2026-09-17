@@ -55,6 +55,17 @@ export const clinic = {
   },
 } as const;
 
+/** Brand assets served from /public/brand (logo and Instagram QR). */
+export const brand = {
+  logo: { src: "/brand/logo.png", width: 1024, height: 1024 },
+  logoMark: { src: "/brand/logo-mark.png", width: 640, height: 555 },
+  instagramQr: {
+    image: { src: "/brand/instagram-qr-v2.png", width: 561, height: 587 },
+    handle: "@renodermclinic",
+  },
+
+} as const;
+
 export type Doctor = {
   slug: string;
   name: string;
