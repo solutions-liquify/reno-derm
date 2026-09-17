@@ -1,9 +1,9 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
 import { Clock, MapPin, Navigation, Star } from "lucide-react";
 import { InstagramIcon as Instagram } from "@/components/ui/InstagramIcon";
-import { type MouseEvent } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import { clinic, doctors } from "@/data/clinic";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 
@@ -133,7 +133,7 @@ export function Hero() {
         </div>
 
         {/* visual */}
-        <div className="relative lg:col-span-5">
+        <div className="relative lg:col-span-5 lg:mt-14">
           <div className="relative mx-auto w-full max-w-[30rem] lg:mr-0">
             {/* soft halo */}
             <div className="absolute inset-0 -z-10 scale-110 rounded-[2rem] bg-gradient-to-br from-teal-300/30 to-apricot-200/30 blur-2xl" />
@@ -183,43 +183,23 @@ export function Hero() {
               </div>
             </motion.div>
 
-            {/* floating chips: siblings of the tilted card so they never cover its content */}
+            {/* corner chips: pinned to the card's corners, with content that ticks over */}
             <motion.div
               initial={{ opacity: 0, x: -16, y: 8 }}
               animate={{ opacity: 1, x: 0, y: 0 }}
               transition={{ duration: 0.8, ease, delay: 1.3 }}
-              className="absolute -left-4 -top-7 hidden sm:block lg:-left-10"
+              className="absolute -left-6 -top-14 hidden sm:block lg:-left-12"
             >
-              <motion.div
-                animate={reduce ? undefined : { y: [0, -8, 0] }}
-                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                className="rounded-2xl border border-line bg-white/95 px-4 py-3 shadow-lift backdrop-blur"
-              >
-                <p className="text-[10px] font-semibold uppercase tracking-wider text-muted">Recent result</p>
-                <p className="mt-0.5 text-sm font-semibold text-ink">Subcision + PRP</p>
-                <p className="text-xs text-ink-soft">Visible change in one session</p>
-              </motion.div>
+              <ResultChip />
             </motion.div>
 
             <motion.div
               initial={{ opacity: 0, x: 16, y: -8 }}
               animate={{ opacity: 1, x: 0, y: 0 }}
               transition={{ duration: 0.8, ease, delay: 1.45 }}
-              className="absolute -bottom-7 -right-3 hidden sm:block lg:-right-4"
+              className="absolute -bottom-14 -right-4 hidden sm:block lg:-right-6"
             >
-              <motion.div
-                animate={reduce ? undefined : { y: [0, 8, 0] }}
-                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
-                className="rounded-2xl border border-line bg-white/95 px-4 py-3 shadow-lift backdrop-blur"
-              >
-                <div className="flex items-center gap-1">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="h-3.5 w-3.5 fill-apricot-400 text-apricot-400" />
-                  ))}
-                </div>
-                <p className="mt-1 text-xs font-medium text-ink">“Hands down the best dermat”</p>
-                <p className="text-[11px] text-muted">Ayushi · Google review</p>
-              </motion.div>
+              <ReviewChip />
             </motion.div>
 
           </div>
@@ -228,7 +208,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease, delay: 1.5 }}
-            className="relative mx-auto mt-10 w-full max-w-[30rem] space-y-3 sm:mt-12 lg:mr-0"
+            className="relative mx-auto mt-10 w-full max-w-[30rem] space-y-3 sm:mt-20 lg:mr-0"
           >
             <a
               href={clinic.maps.directions}
@@ -321,6 +301,139 @@ function SpecialistRow({
           {degrees}
           {hours && <span className="text-teal-200/80"> · {hours}</span>}
         </p>
+      </div>
+    </motion.div>
+  );
+}
+
+const results = [
+  { treatment: "Subcision + PRP", outcome: "Visible change in one session" },
+  { treatment: "Ingrown toenail surgery", outcome: "Painless, no complications" },
+  { treatment: "Hair PRP", outcome: "Effective for dryness and thinning" },
+  { treatment: "Acne scar microneedling", outcome: "Smoother texture in weeks" },
+];
+
+const quotes = [
+  { text: "Hands down the best dermat", who: "Ayushi" },
+  { text: "Knowledgeable, patient, genuinely cares", who: "Mamta" },
+  { text: "Professional, reassuring, personalized", who: "Shreya" },
+  { text: "Never made me feel in pain", who: "Meet" },
+];
+
+const TICK_MS = 3600;
+
+/** Cycles an index every TICK_MS, paused while `paused` is true. */
+function useTicker(length: number, paused: boolean) {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    if (paused) return;
+    const id = window.setInterval(() => setI((v) => (v + 1) % length), TICK_MS);
+    return () => window.clearInterval(id);
+  }, [length, paused]);
+  return i;
+}
+
+const swap = {
+  initial: { opacity: 0, y: 8, filter: "blur(3px)" },
+  animate: { opacity: 1, y: 0, filter: "blur(0px)" },
+  exit: { opacity: 0, y: -8, filter: "blur(3px)" },
+};
+
+function ResultChip() {
+  const reduce = useReducedMotion();
+  const [hover, setHover] = useState(false);
+  const i = useTicker(results.length, !!reduce || hover);
+  const r = results[i];
+  return (
+    <motion.div
+      onHoverStart={() => setHover(true)}
+      onHoverEnd={() => setHover(false)}
+      whileHover={{ scale: 1.03 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className="relative w-[15.5rem] overflow-hidden rounded-2xl border border-line bg-white/95 px-4 py-3 shadow-lift backdrop-blur"
+    >
+      <div className="flex items-center justify-between">
+        <p className="text-[10px] font-semibold uppercase tracking-wider text-muted">Recent result</p>
+        <span className="flex items-center gap-1" aria-hidden="true">
+          {results.map((_, k) => (
+            <span
+              key={k}
+              className={`h-1 rounded-full transition-all duration-500 ${k === i ? "w-3 bg-teal-500" : "w-1 bg-line"}`}
+            />
+          ))}
+        </span>
+      </div>
+      <div className="relative mt-0.5 h-[2.35rem]">
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={i}
+            variants={reduce ? undefined : swap}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            transition={{ duration: 0.4, ease }}
+            className="absolute inset-0"
+          >
+            <p className="truncate text-sm font-semibold text-ink">{r.treatment}</p>
+            <p className="truncate text-xs text-ink-soft">{r.outcome}</p>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+      {/* progress hairline that refills on every tick */}
+      {!reduce && (
+        <motion.span
+          key={`bar-${i}`}
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: hover ? 0 : 1 }}
+          transition={{ duration: TICK_MS / 1000, ease: "linear" }}
+          className="absolute bottom-0 left-0 h-[2px] w-full origin-left bg-gradient-to-r from-teal-400 to-apricot-400"
+        />
+      )}
+    </motion.div>
+  );
+}
+
+function ReviewChip() {
+  const reduce = useReducedMotion();
+  const [hover, setHover] = useState(false);
+  const i = useTicker(quotes.length, !!reduce || hover);
+  const q = quotes[i];
+  return (
+    <motion.div
+      onHoverStart={() => setHover(true)}
+      onHoverEnd={() => setHover(false)}
+      whileHover={{ scale: 1.03 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className="w-[15.5rem] rounded-2xl border border-line bg-white/95 px-4 py-3 shadow-lift backdrop-blur"
+    >
+      <div className="flex items-center gap-1" aria-label="5 out of 5 stars">
+        {Array.from({ length: 5 }).map((_, k) => (
+          <motion.span
+            key={`${i}-${k}`}
+            initial={reduce ? false : { scale: 0.4, opacity: 0.3 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: "spring", stiffness: 500, damping: 18, delay: 0.08 * k }}
+            className="inline-flex"
+          >
+            <Star className="h-3.5 w-3.5 fill-apricot-400 text-apricot-400" />
+          </motion.span>
+        ))}
+      </div>
+      <div className="relative mt-1 h-[2.1rem]">
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={i}
+            variants={reduce ? undefined : swap}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            transition={{ duration: 0.4, ease }}
+            className="absolute inset-0"
+          >
+            <p className="truncate text-xs font-medium text-ink">“{q.text}”</p>
+            <p className="text-[11px] text-muted">{q.who} · Google review</p>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </motion.div>
   );
