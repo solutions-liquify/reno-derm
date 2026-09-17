@@ -50,7 +50,7 @@ export function Hero() {
         className="absolute -bottom-52 left-[-12%] -z-10 h-[34rem] w-[34rem] rounded-full bg-apricot-200/50 blur-3xl"
       />
 
-      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-14 px-5 sm:px-8 lg:grid-cols-12 lg:gap-10">
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-14 px-5 lg:grid-cols-12 lg:gap-8">
         {/* copy */}
         <div className="lg:col-span-7">
           <motion.div
@@ -66,7 +66,7 @@ export function Hero() {
             Now open in Gota, Ahmedabad
           </motion.div>
 
-          <h1 className="mt-5 font-sans font-semibold text-[2.6rem] leading-[1.04] tracking-[-0.03em] text-ink sm:text-[3.4rem] lg:text-[3.9rem] xl:text-[4.5rem]">
+          <h1 className="mt-5 font-sans font-semibold text-[2.6rem] leading-[1.04] tracking-[-0.03em] text-ink sm:text-[3.4rem] lg:text-[3.6rem] xl:text-[4.25rem]">
             {lines.map((l, i) => (
               <span key={l.text} className="block overflow-hidden pb-[0.08em]">
                 <motion.span
@@ -130,55 +130,11 @@ export function Hero() {
             </li>
           </motion.ul>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1.35 }}
-            className="mt-5 space-y-3 text-sm text-ink-soft"
-          >
-            <a
-              href={clinic.maps.directions}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex max-w-xl items-start gap-2.5 rounded-xl border border-line bg-white/70 px-4 py-3 backdrop-blur transition-colors hover:border-teal-300 hover:bg-white"
-            >
-              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-teal-600" />
-              <span>
-                <span className="block font-semibold text-ink">{clinic.address.full}</span>
-                <span className="link-underline mt-0.5 inline-block text-xs text-teal-700 group-hover:text-teal-800">
-                  Open in Google Maps
-                </span>
-              </span>
-            </a>
-            <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
-              <span className="inline-flex items-center gap-1.5">
-                <Instagram className="h-4 w-4 text-teal-600" />
-                For more details, visit us on Instagram:
-              </span>
-              <a
-                href={clinic.social.instagramClinic}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link-underline font-semibold text-ink hover:text-teal-800"
-              >
-                @renodermclinic
-              </a>
-              <span aria-hidden="true">·</span>
-              <a
-                href={clinic.social.instagramDoctor}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link-underline font-semibold text-ink hover:text-teal-800"
-              >
-                @drvyoma_dermatologist
-              </a>
-            </p>
-          </motion.div>
         </div>
 
         {/* visual */}
         <div className="relative lg:col-span-5">
-          <div className="relative mx-auto w-full max-w-[26rem]">
+          <div className="relative mx-auto w-full max-w-[30rem] lg:mr-0">
             {/* soft halo */}
             <div className="absolute inset-0 -z-10 scale-110 rounded-[2rem] bg-gradient-to-br from-teal-300/30 to-apricot-200/30 blur-2xl" />
 
@@ -223,11 +179,6 @@ export function Hero() {
                     ))}
                   </div>
 
-                  <div className="relative mt-6 grid grid-cols-3 gap-2.5 text-center">
-                    <MiniStat label="Rating" value="5.0" delay={1.1} />
-                    <MiniStat label="Reviews" value="29+" delay={1.18} />
-                    <MiniStat label="Sunday" value="By appt" delay={1.26} />
-                  </div>
                 </div>
               </div>
             </motion.div>
@@ -237,7 +188,7 @@ export function Hero() {
               initial={{ opacity: 0, x: -16, y: 8 }}
               animate={{ opacity: 1, x: 0, y: 0 }}
               transition={{ duration: 0.8, ease, delay: 1.3 }}
-              className="absolute -left-4 -top-7 hidden sm:block lg:-left-12"
+              className="absolute -left-4 -top-7 hidden sm:block lg:-left-10"
             >
               <motion.div
                 animate={reduce ? undefined : { y: [0, -8, 0] }}
@@ -254,7 +205,7 @@ export function Hero() {
               initial={{ opacity: 0, x: 16, y: -8 }}
               animate={{ opacity: 1, x: 0, y: 0 }}
               transition={{ duration: 0.8, ease, delay: 1.45 }}
-              className="absolute -bottom-7 -right-3 hidden sm:block lg:-right-10"
+              className="absolute -bottom-7 -right-3 hidden sm:block lg:-right-4"
             >
               <motion.div
                 animate={reduce ? undefined : { y: [0, 8, 0] }}
@@ -270,7 +221,65 @@ export function Hero() {
                 <p className="text-[11px] text-muted">Ayushi · Google review</p>
               </motion.div>
             </motion.div>
+
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease, delay: 1.5 }}
+            className="relative mx-auto mt-10 w-full max-w-[30rem] space-y-3 sm:mt-12 lg:mr-0"
+          >
+            <a
+              href={clinic.maps.directions}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-start gap-3 rounded-2xl border border-line bg-white/85 px-4 py-3.5 shadow-soft backdrop-blur transition-colors hover:border-teal-300"
+            >
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-teal-50 text-teal-700 ring-1 ring-teal-100">
+                <MapPin className="h-4 w-4" />
+              </span>
+              <span className="min-w-0 text-sm leading-snug">
+                <span className="block font-semibold text-ink">
+                  {clinic.address.line1}, {clinic.address.line2}
+                </span>
+                <span className="block text-xs text-ink-soft">
+                  {clinic.address.area}, {clinic.address.city} {clinic.address.pincode}
+                </span>
+                <span className="mt-1 inline-flex items-center gap-1 text-xs font-semibold text-teal-700 group-hover:text-teal-800">
+                  Open in Google Maps
+                  <Navigation className="h-3 w-3" />
+                </span>
+              </span>
+            </a>
+
+            <div className="flex items-start gap-3 rounded-2xl border border-line bg-white/85 px-4 py-3.5 shadow-soft backdrop-blur">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-teal-50 text-teal-700 ring-1 ring-teal-100">
+                <Instagram className="h-4 w-4" />
+              </span>
+              <span className="min-w-0 text-sm leading-snug">
+                <span className="block text-xs text-ink-soft">For more details, visit us on Instagram</span>
+                <span className="mt-0.5 flex flex-wrap gap-x-3 gap-y-0.5">
+                  <a
+                    href={clinic.social.instagramClinic}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-ink transition-colors hover:text-teal-700"
+                  >
+                    @renodermclinic
+                  </a>
+                  <a
+                    href={clinic.social.instagramDoctor}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-ink transition-colors hover:text-teal-700"
+                  >
+                    @drvyoma_dermatologist
+                  </a>
+                </span>
+              </span>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -313,20 +322,6 @@ function SpecialistRow({
           {hours && <span className="text-teal-200/80"> · {hours}</span>}
         </p>
       </div>
-    </motion.div>
-  );
-}
-
-function MiniStat({ label, value, delay }: { label: string; value: string; delay: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease, delay }}
-      className="rounded-xl bg-white/10 px-2 py-2.5 ring-1 ring-white/10 backdrop-blur-sm"
-    >
-      <p className="font-display text-xl leading-none sm:text-2xl">{value}</p>
-      <p className="mt-1 text-[10px] uppercase tracking-wider text-teal-100/90">{label}</p>
     </motion.div>
   );
 }
