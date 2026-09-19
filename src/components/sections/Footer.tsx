@@ -1,6 +1,7 @@
+import Image from "next/image";
 import { ArrowUp } from "lucide-react";
 import { InstagramIcon as Instagram } from "@/components/ui/InstagramIcon";
-import { clinic, navLinks } from "@/data/clinic";
+import { brand, clinic, navLinks } from "@/data/clinic";
 import { Logo } from "@/components/ui/Logo";
 
 export function Footer() {
@@ -32,6 +33,30 @@ export function Footer() {
                 G
               </a>
             </div>
+
+            <a
+              href={clinic.social.instagramClinic}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group mt-8 inline-flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-3 pr-5 transition-colors hover:border-teal-300/60 hover:bg-white/10"
+            >
+              <span className="shrink-0 overflow-hidden rounded-xl bg-white p-1.5">
+                <Image
+                  src={brand.instagramQr.image.src}
+                  alt={`QR code for ${brand.instagramQr.handle} on Instagram`}
+                  width={brand.instagramQr.image.width}
+                  height={brand.instagramQr.image.height}
+                  sizes="80px"
+                  className="h-[4.5rem] w-auto"
+                />
+              </span>
+              <span className="text-sm leading-snug">
+                <span className="block font-semibold text-paper">Scan to follow us</span>
+                <span className="mt-0.5 block text-paper/60">
+                  {brand.instagramQr.handle} on Instagram
+                </span>
+              </span>
+            </a>
           </div>
 
           <div className="md:col-span-3">

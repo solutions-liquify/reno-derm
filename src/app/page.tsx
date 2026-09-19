@@ -9,7 +9,6 @@ import { Reviews } from "@/components/sections/Reviews";
 import { Faq } from "@/components/sections/Faq";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/sections/Footer";
-import { WhatsAppFab } from "@/components/ui/WhatsAppFab";
 
 export default function Home() {
   return (
@@ -27,7 +26,6 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
-      <WhatsAppFab />
     </>
   );
 }

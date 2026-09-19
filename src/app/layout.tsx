@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Fraunces } from "next/font/google";
 import "./globals.css";
-import { clinic, doctors } from "@/data/clinic";
+import { brand, clinic, doctors } from "@/data/clinic";
 
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
@@ -68,6 +68,8 @@ const jsonLd = {
   alternateName: clinic.fullName,
   description: clinic.description,
   url: siteUrl,
+  logo: `${siteUrl}${brand.logo.src}`,
+  image: `${siteUrl}/opengraph-image`,
   telephone: clinic.phones[0].number.replace(/\s/g, ""),
   email: clinic.email,
   address: {
@@ -81,8 +83,8 @@ const jsonLd = {
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-      opens: "10:00",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      opens: "15:30",
       closes: "20:00",
     },
   ],

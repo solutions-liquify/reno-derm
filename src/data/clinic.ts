@@ -29,18 +29,26 @@ export const clinic = {
     "https://wa.me/919426687022?text=Hi%2C%20I%20would%20like%20to%20book%20an%20appointment%20at%20RenoDerm.",
   email: "drvyoma95@gmail.com",
   hours: {
-    clinic: "10:00 AM – 8:00 PM, all 7 days",
-    consultation: "5:00 PM – 8:00 PM",
-    note: "Consultations by prior appointment. Call or WhatsApp to confirm a slot.",
-    weekly: [
-      { day: "Monday", time: "10:00 AM – 8:00 PM" },
-      { day: "Tuesday", time: "10:00 AM – 8:00 PM" },
-      { day: "Wednesday", time: "10:00 AM – 8:00 PM" },
-      { day: "Thursday", time: "10:00 AM – 8:00 PM" },
-      { day: "Friday", time: "10:00 AM – 8:00 PM" },
-      { day: "Saturday", time: "10:00 AM – 8:00 PM" },
-      { day: "Sunday", time: "10:00 AM – 8:00 PM" },
+    clinic: "Mon – Sat, 3:30 PM – 8:00 PM · Sunday by appointment",
+    note: "Sunday consultations are on an appointment basis. Call or WhatsApp to confirm a slot.",
+    /** Per-doctor consulting hours, Monday to Saturday. */
+    schedule: [
+      {
+        doctor: "Dr. Vyoma Mehta Dholakia",
+        speciality: "Dermatology",
+        days: "Mon – Sat",
+        time: "3:30 PM – 8:00 PM",
+        short: "Mon–Sat · 3:30–8 PM",
+      },
+      {
+        doctor: "Dr. Akash Dholakia",
+        speciality: "Nephrology",
+        days: "Mon – Sat",
+        time: "6:00 PM – 8:00 PM",
+        short: "Mon–Sat · 6–8 PM",
+      },
     ],
+    sunday: "Appointment basis",
   },
   rating: { value: 5.0, count: 29, source: "Google" },
   maps: {
@@ -53,6 +61,17 @@ export const clinic = {
     instagramDoctor: "https://www.instagram.com/drvyoma_dermatologist/",
     googleReviews: "https://maps.google.com/?cid=11094565210879821662",
   },
+} as const;
+
+/** Brand assets served from /public/brand (logo and Instagram QR). */
+export const brand = {
+  logo: { src: "/brand/logo.png", width: 1024, height: 1024 },
+  logoMark: { src: "/brand/logo-mark.png", width: 640, height: 555 },
+  instagramQr: {
+    image: { src: "/brand/instagram-qr-v2.png", width: 561, height: 587 },
+    handle: "@renodermclinic",
+  },
+
 } as const;
 
 export type Doctor = {
@@ -116,38 +135,82 @@ export type Service = {
   icon: string; // lucide icon name
 };
 
-export const services: Record<
-  "skin" | "kidney",
-  { heading: string; intro: string; items: Service[] }
-> = {
-  skin: {
-    heading: "Skin, Hair & Nail",
+export type ServiceGroup = {
+  heading: string;
+  doctor: string;
+  intro: string;
+  /** Sub-groups shown under one tab, e.g. medical vs aesthetic dermatology. */
+  sections: { title: string; items: Service[] }[];
+};
+
+/** Services as printed on the clinic's service board and Dr. Akash's practice poster. */
+export const services: Record<"dermatology" | "nephrology", ServiceGroup> = {
+  dermatology: {
+    heading: "Dermatology",
+    doctor: "Dr. Vyoma Mehta Dholakia",
     intro:
-      "From stubborn acne to advanced aesthetic procedures, every plan is tailored to your skin type, lifestyle and goals.",
-    items: [
-      { title: "Acne & Acne Scars", desc: "Subcision, PRP, microneedling (Dermapen) and peels for active acne and deep scars.", icon: "Sparkles" },
-      { title: "Pigmentation & Melasma", desc: "Evidence-based protocols to even out tone, fade dark spots and prevent recurrence.", icon: "Sun" },
-      { title: "Hair Loss & Scalp", desc: "PRP therapy, medical management and scalp care for thinning, dryness and dandruff.", icon: "Wind" },
-      { title: "Chemical Peels & Skin Boosters", desc: "Gentle, graded peels and injectable boosters for glow, texture and hydration.", icon: "Droplets" },
-      { title: "Anti-ageing & Aesthetics", desc: "Botox, fillers and glutathione drips planned conservatively for natural results.", icon: "Gem" },
-      { title: "Nail & Minor Surgery", desc: "Ingrown toenail removal, wart & mole removal, skin biopsies and cyst excision.", icon: "Scissors" },
-      { title: "Eczema, Psoriasis & Rashes", desc: "Long-term control of chronic skin conditions, fungal infections and intertrigo.", icon: "ShieldCheck" },
-      { title: "Bridal & Pre-event Care", desc: "Timed skin, hair and supplement plans so you glow on the day that matters.", icon: "Heart" },
+      "Medical, surgical and aesthetic care for skin, hair and nails with Dr. Vyoma Mehta Dholakia, M.D. (Skin & V.D.).",
+    sections: [
+      {
+        title: "Skin, hair & nail conditions",
+        items: [
+          { title: "Acne & Acne Scars", desc: "Active acne control, plus subcision, PRP and microneedling for scars.", icon: "Sparkles" },
+          { title: "Pigmentation & Melasma", desc: "Evidence-based protocols to even out tone and prevent recurrence.", icon: "Sun" },
+          { title: "Hair & Scalp Disorders", desc: "Hair fall, dandruff, alopecia and other scalp conditions.", icon: "Wind" },
+          { title: "Skin Infections", desc: "Fungal, bacterial and viral infections treated at the root.", icon: "Bug" },
+          { title: "Psoriasis & Eczema", desc: "Long-term control of chronic, flaring skin conditions.", icon: "ShieldCheck" },
+          { title: "Mole / Wart / Skin Lesion Treatment", desc: "Safe removal of moles, warts, skin tags and other lesions.", icon: "CircleDot" },
+          { title: "Nail Surgery", desc: "Ingrown toenail and other nail procedures, done gently.", icon: "Scissors" },
+          { title: "Vitiligo Surgery", desc: "Surgical options for stable vitiligo patches.", icon: "Palette" },
+          { title: "Earlobe Repair & Ear Piercing", desc: "Torn or stretched earlobe repair and sterile piercing.", icon: "Ear" },
+          { title: "Minor Skin Procedures & Scar Revision", desc: "Cyst excision, skin biopsies and scar improvement.", icon: "Bandage" },
+        ],
+      },
+      {
+        title: "Aesthetic dermatology",
+        items: [
+          { title: "Botox", desc: "Softens fine lines and wrinkles for a refreshed look.", icon: "Syringe" },
+          { title: "Dermal Fillers", desc: "Restores volume and contours lips, cheeks and under-eyes.", icon: "Droplets" },
+          { title: "PRP", desc: "Platelet-rich plasma for hair regrowth and skin rejuvenation.", icon: "FlaskConical" },
+          { title: "Hair Reduction", desc: "Laser hair reduction for smooth, lasting results.", icon: "Zap" },
+          { title: "Microneedling", desc: "Collagen induction for scars, open pores and texture.", icon: "Layers" },
+          { title: "Skin Boosters", desc: "Injectable hydration for glow and elasticity.", icon: "Gem" },
+          { title: "Chemical Peels", desc: "Graded peels for tone, texture and radiance.", icon: "Feather" },
+        ],
+      },
     ],
   },
-  kidney: {
-    heading: "Kidney & Metabolic",
+  nephrology: {
+    heading: "Nephrology",
+    doctor: "Dr. Akash Dholakia",
     intro:
-      "Early detection and steady, long-term management to protect kidney function and keep you off dialysis for as long as possible.",
-    items: [
-      { title: "Chronic Kidney Disease", desc: "Staging, slowing progression and coordinating diet, medicines and monitoring.", icon: "Activity" },
-      { title: "Dialysis Care", desc: "Haemodialysis and peritoneal dialysis guidance, access planning and follow-up.", icon: "RefreshCw" },
-      { title: "Acute Kidney Injury", desc: "Rapid evaluation and treatment of sudden drops in kidney function.", icon: "Zap" },
-      { title: "Glomerular Diseases", desc: "Nephrotic and nephritic syndromes, IgA nephropathy and lupus nephritis.", icon: "Microscope" },
-      { title: "Hypertension & Diabetes", desc: "Blood pressure and sugar control focused on protecting your kidneys.", icon: "HeartPulse" },
-      { title: "Kidney Transplant", desc: "Pre-transplant work-up and lifelong post-transplant physician care.", icon: "HandHeart" },
-      { title: "Kidney Stones & UTI", desc: "Prevention plans, recurrent infection work-up and metabolic evaluation.", icon: "Stethoscope" },
-      { title: "Electrolyte Disorders", desc: "Sodium, potassium and acid-base imbalances managed safely.", icon: "FlaskConical" },
+      "Kidney care from early risk through dialysis and transplant, plus general medicine, with Dr. Akash Dholakia, M.D., DrNB (Nephrology).",
+    sections: [
+      {
+        title: "Kidney care",
+        items: [
+          { title: "Kidney Disease", desc: "Early detection and comprehensive care for all kidney-related problems.", icon: "Activity" },
+          { title: "Diabetes & Hypertension", desc: "Screening, treatment and long-term management to protect the kidneys.", icon: "HeartPulse" },
+          { title: "Kidney Stones Consultation", desc: "Evaluation, prevention plans and metabolic work-up.", icon: "Hexagon" },
+          { title: "Urinary & Renal Problems", desc: "Recurrent UTIs, blood or protein in urine and reduced urine output.", icon: "Droplet" },
+          { title: "Dialysis / Transplant Consultation", desc: "Haemodialysis, peritoneal dialysis and pre- and post-transplant care.", icon: "RefreshCw" },
+          { title: "Electrolyte & Mineral Disorders", desc: "Sodium, potassium, calcium and other electrolyte imbalances.", icon: "Beaker" },
+        ],
+      },
+      {
+        title: "General medicine",
+        items: [
+          { title: "Thyroid Disorders", desc: "Hypothyroidism, hyperthyroidism and related metabolic problems.", icon: "Scale" },
+          { title: "Anemia & Nutritional Deficiencies", desc: "Iron, Vitamin B12, Vitamin D and other deficiencies.", icon: "Pill" },
+          { title: "Fever & Infections", desc: "Viral and bacterial infections, dengue, malaria, typhoid, UTI and more.", icon: "Thermometer" },
+          { title: "Respiratory Problems", desc: "Cough, cold, asthma, bronchitis and COPD.", icon: "Wind" },
+          { title: "Digestive & Gastric Disorders", desc: "Acidity, gastritis, constipation, IBS and liver-function abnormalities.", icon: "Utensils" },
+          { title: "Joint & Musculoskeletal Problems", desc: "Joint pain, arthritis, gout and back pain.", icon: "Bone" },
+          { title: "Lifestyle & Metabolic Disorders", desc: "Obesity, high cholesterol and overall health optimisation.", icon: "Footprints" },
+          { title: "Preventive Health Check-ups", desc: "General health screening and risk assessment.", icon: "ClipboardCheck" },
+          { title: "Chronic Disease Follow-up", desc: "Long-term care for diabetes, hypertension, kidney and other chronic conditions.", icon: "Users" },
+        ],
+      },
     ],
   },
 };
@@ -156,7 +219,7 @@ export const stats = [
   { value: 5.0, suffix: "", label: "Google rating", decimals: 1 },
   { value: 29, suffix: "+", label: "Five-star reviews", decimals: 0 },
   { value: 2, suffix: "", label: "Specialists, one roof", decimals: 0 },
-  { value: 7, suffix: " days", label: "Open every week", decimals: 0 },
+  { value: 6, suffix: " days", label: "A week, Sundays by appointment", decimals: 0 },
 ];
 
 export type Review = { name: string; when: string; text: string; tag: string };
@@ -215,7 +278,7 @@ export const reviews: Review[] = [
 export const faqs = [
   {
     q: "Do I need an appointment?",
-    a: "Yes, consultations run 5:00 PM to 8:00 PM by prior appointment. Call or WhatsApp us and we will confirm a slot, usually the same or next day.",
+    a: "Yes. Dr. Vyoma (dermatology) consults Monday to Saturday, 3:30 PM to 8:00 PM, and Dr. Akash (nephrology) Monday to Saturday, 6:00 PM to 8:00 PM. Sundays are on an appointment basis. Call or WhatsApp us and we will confirm a slot, usually the same or next day.",
   },
   {
     q: "Can I see both doctors in one visit?",

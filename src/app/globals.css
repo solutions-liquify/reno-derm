@@ -3,7 +3,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Brand palette: renal teal + skin-warm apricot on a warm paper background */
+  /* Brand palette: renal teal + logo gold on a warm paper background */
   --color-ink: #10221f;
   --color-ink-soft: #3d504c;
   --color-muted: #6b7a77;
@@ -23,13 +23,14 @@
   --color-teal-800: #10473f;
   --color-teal-900: #0d3833;
 
-  --color-apricot-50: #fff4ec;
-  --color-apricot-100: #ffe5d3;
-  --color-apricot-200: #ffc9a6;
-  --color-apricot-300: #ffa872;
-  --color-apricot-400: #f98a4c;
-  --color-apricot-500: #e86f2e;
-  --color-apricot-600: #c95a21;
+  /* "apricot" scale tuned to the brand gold in the RenoDerm logo */
+  --color-apricot-50: #fdf6e6;
+  --color-apricot-100: #f9e9c3;
+  --color-apricot-200: #f3d58c;
+  --color-apricot-300: #eabb55;
+  --color-apricot-400: #e0a42a;
+  --color-apricot-500: #ca8e16;
+  --color-apricot-600: #a37010;
 
   --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-fraunces), Georgia, serif;
