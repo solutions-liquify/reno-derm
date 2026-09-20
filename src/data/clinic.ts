@@ -22,8 +22,7 @@ export const clinic = {
     full: "112, Anand Sapphire, Opp. Vishwas City-7, Opp. Anutham Apartment, Gota, Ahmedabad, Gujarat 382481",
   },
   phones: [
-    { label: "Appointments", number: "+91 94266 87022", href: "tel:+919426687022" },
-    { label: "Enquiry", number: "+91 98799 43023", href: "tel:+919879943023" },
+    { label: "Phone", number: "+91 88493 06350", href: "tel:+918849306350" },
   ],
   whatsapp:
     "https://wa.me/918849306350?text=Hi%2C%20I%20would%20like%20to%20book%20an%20appointment%20at%20RenoDerm.",

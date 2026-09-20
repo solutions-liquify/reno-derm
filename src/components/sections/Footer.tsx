@@ -80,10 +80,6 @@ export function Footer() {
                 <a href={clinic.phones[0].href} className="link-underline hover:text-paper">
                   {clinic.phones[0].number}
                 </a>
-                {" · "}
-                <a href={clinic.phones[1].href} className="link-underline hover:text-paper">
-                  {clinic.phones[1].number}
-                </a>
               </p>
               <p>
                 <a href={`mailto:${clinic.email}`} className="link-underline hover:text-paper">
