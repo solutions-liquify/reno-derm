@@ -1,9 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Check, GraduationCap } from "lucide-react";
+import { Check, GraduationCap, Phone } from "lucide-react";
 import { InstagramIcon as Instagram } from "@/components/ui/InstagramIcon";
-import { doctors } from "@/data/clinic";
+import { clinic, doctors } from "@/data/clinic";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 
@@ -22,6 +22,7 @@ export function Doctors() {
         <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-2">
           {doctors.map((d, i) => {
             const isDerm = d.speciality === "Dermatology";
+            const phone = isDerm ? clinic.phones.dermatology : clinic.phones.nephrology;
             return (
               <Reveal key={d.slug} delay={i * 0.12}>
                 <motion.article
@@ -82,17 +83,26 @@ export function Doctors() {
                           </li>
                         ))}
                       </ul>
-                      {d.instagram && (
+                      <div className="flex flex-wrap gap-2">
                         <a
-                          href={d.instagram}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                          href={phone.href}
                           className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-2 text-xs font-semibold text-ink transition-colors hover:border-teal-300 hover:text-teal-800"
                         >
-                          <Instagram className="h-3.5 w-3.5" />
-                          Follow
+                          <Phone className="h-3.5 w-3.5" />
+                          {phone.number}
                         </a>
-                      )}
+                        {d.instagram && (
+                          <a
+                            href={d.instagram}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-2 text-xs font-semibold text-ink transition-colors hover:border-teal-300 hover:text-teal-800"
+                          >
+                            <Instagram className="h-3.5 w-3.5" />
+                            Follow
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </motion.article>

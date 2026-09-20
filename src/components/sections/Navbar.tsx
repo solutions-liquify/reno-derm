@@ -1,9 +1,9 @@
 "use client";
 
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
-import { Menu, Phone, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { clinic, navLinks } from "@/data/clinic";
+import { navLinks } from "@/data/clinic";
 import { Logo } from "@/components/ui/Logo";
 
 export function Navbar() {
@@ -82,24 +82,6 @@ export function Navbar() {
             })}
           </nav>
 
-          <div className="hidden items-center gap-2 lg:flex">
-            <a
-              href={clinic.phones[0].href}
-              className="link-underline text-sm font-semibold text-ink-soft hover:text-ink"
-            >
-              {clinic.phones[0].number}
-            </a>
-            <a
-              href={clinic.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2 text-sm font-semibold text-paper transition-colors hover:bg-teal-700"
-            >
-              <Phone className="h-4 w-4 transition-transform group-hover:-rotate-12" />
-              Book appointment
-            </a>
-          </div>
-
           <button
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
@@ -140,25 +122,6 @@ export function Navbar() {
                   {l.label}
                 </motion.a>
               ))}
-              <motion.div
-                variants={{ hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0 } }}
-                className="mt-8 flex flex-col gap-3"
-              >
-                <a
-                  href={clinic.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-full bg-ink px-6 py-4 text-base font-semibold text-paper"
-                >
-                  Book on WhatsApp
-                </a>
-                <a
-                  href={clinic.phones[0].href}
-                  className="inline-flex items-center justify-center rounded-full border border-line bg-white px-6 py-4 text-base font-semibold text-ink"
-                >
-                  Call {clinic.phones[0].number}
-                </a>
-              </motion.div>
             </motion.nav>
           </motion.div>
         )}

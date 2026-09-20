@@ -21,11 +21,16 @@ export const clinic = {
     pincode: "382481",
     full: "112, Anand Sapphire, Opp. Vishwas City-7, Opp. Anutham Apartment, Gota, Ahmedabad, Gujarat 382481",
   },
-  phones: [
-    { label: "Phone", number: "+91 88493 06350", href: "tel:+918849306350" },
-  ],
-  whatsapp:
-    "https://wa.me/918849306350?text=Hi%2C%20I%20would%20like%20to%20book%20an%20appointment%20at%20RenoDerm.",
+  phones: {
+    dermatology: { number: "+91 88493 06350", href: "tel:+918849306350" },
+    nephrology: { number: "+91 98799 43023", href: "tel:+919879943023" },
+  },
+  whatsapp: {
+    dermatology:
+      "https://wa.me/918849306350?text=Hi%2C%20I%20would%20like%20to%20book%20a%20dermatology%20appointment%20at%20RenoDerm.",
+    nephrology:
+      "https://wa.me/919879943023?text=Hi%2C%20I%20would%20like%20to%20book%20a%20nephrology%20appointment%20at%20RenoDerm.",
+  },
   email: "drvyoma95@gmail.com",
   hours: {
     clinic: "Mon – Sat, 3:30 PM – 8:00 PM · Sunday by appointment",
@@ -35,6 +40,7 @@ export const clinic = {
       {
         doctor: "Dr. Vyoma Mehta Dholakia",
         speciality: "Dermatology",
+        phone: "dermatology",
         days: "Mon – Sat",
         time: "3:30 PM – 8:00 PM",
         short: "Mon–Sat · 3:30–8 PM",
@@ -42,6 +48,7 @@ export const clinic = {
       {
         doctor: "Dr. Akash Dholakia",
         speciality: "Nephrology",
+        phone: "nephrology",
         days: "Mon – Sat",
         time: "6:00 PM – 8:00 PM",
         short: "Mon–Sat · 6–8 PM",

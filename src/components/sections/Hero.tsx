@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
-import { Clock, MapPin, Navigation, Star } from "lucide-react";
+import { Clock, MapPin, MessageCircle, Navigation, Phone, Star } from "lucide-react";
 import { InstagramIcon as Instagram } from "@/components/ui/InstagramIcon";
 import { useEffect, useState, type MouseEvent } from "react";
 import { clinic, doctors } from "@/data/clinic";
@@ -95,11 +95,50 @@ export function Hero() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease, delay: 1 }}
-            className="mt-7 flex flex-wrap items-center gap-3"
+            className="mt-7 grid gap-3 sm:grid-cols-2"
           >
-            <MagneticButton href="#services">
-              Explore treatments
-            </MagneticButton>
+            <div className="rounded-2xl border border-line bg-white/85 p-4 shadow-soft">
+              <p className="text-xs font-semibold uppercase tracking-wider text-teal-700">Dermatology</p>
+              <p className="mt-1 font-semibold text-ink">Dr. Vyoma Mehta Dholakia</p>
+              <a href={clinic.phones.dermatology.href} className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-ink hover:text-teal-700">
+                <Phone className="h-4 w-4 text-teal-600" />
+                {clinic.phones.dermatology.number}
+              </a>
+              <a
+                href={clinic.whatsapp.dermatology}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 flex w-fit items-center gap-2 rounded-full bg-ink px-4 py-2 text-sm font-semibold text-paper transition-colors hover:bg-teal-700"
+              >
+                <MessageCircle className="h-4 w-4" />
+                WhatsApp Dr. Vyoma
+              </a>
+            </div>
+            <div className="rounded-2xl border border-line bg-white/85 p-4 shadow-soft">
+              <p className="text-xs font-semibold uppercase tracking-wider text-teal-700">Nephrology</p>
+              <p className="mt-1 font-semibold text-ink">Dr. Akash Dholakia</p>
+              <a href={clinic.phones.nephrology.href} className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-ink hover:text-teal-700">
+                <Phone className="h-4 w-4 text-teal-600" />
+                {clinic.phones.nephrology.number}
+              </a>
+              <a
+                href={clinic.whatsapp.nephrology}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 flex w-fit items-center gap-2 rounded-full bg-ink px-4 py-2 text-sm font-semibold text-paper transition-colors hover:bg-teal-700"
+              >
+                <MessageCircle className="h-4 w-4" />
+                WhatsApp Dr. Akash
+              </a>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease, delay: 1.1 }}
+            className="mt-4"
+          >
             <MagneticButton href={clinic.maps.directions} variant="secondary" external>
               <Navigation className="h-4 w-4" />
               Get directions

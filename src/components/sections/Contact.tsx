@@ -59,25 +59,40 @@ export function Contact() {
                   </p>
                 </div>
               </div>
+            </Reveal>
 
-              <div className="mt-6 flex items-start gap-4">
+            <Reveal delay={0.1} className="rounded-xl3 border border-line bg-white p-7 shadow-soft">
+              <div className="flex items-start gap-4">
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-teal-50 text-teal-700 ring-1 ring-teal-100">
                   <Clock className="h-5 w-5" />
                 </span>
                 <div className="w-full">
                   <h3 className="font-semibold text-ink">Hours</h3>
                   <ul className="mt-2 divide-y divide-line text-sm">
-                    {clinic.hours.schedule.map((h) => (
-                      <li key={h.doctor} className="flex items-center justify-between gap-4 py-2">
-                        <span>
-                          <span className="block font-semibold text-ink">{h.doctor}</span>
-                          <span className="block text-xs text-muted">
-                            {h.speciality} · {h.days}
-                          </span>
-                        </span>
-                        <span className="shrink-0 font-semibold text-teal-800">{h.time}</span>
-                      </li>
-                    ))}
+                    {clinic.hours.schedule.map((h) => {
+                      const phone = clinic.phones[h.phone];
+                      return (
+                        <li key={h.doctor} className="py-4 first:pt-2">
+                          <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-1">
+                            <span>
+                              <span className="block font-semibold text-ink">{h.doctor}</span>
+                              <span className="block text-xs text-muted">
+                                {h.speciality} · {h.days}
+                              </span>
+                            </span>
+                            <span className="shrink-0 font-semibold text-teal-800">{h.time}</span>
+                          </div>
+                          <a
+                            href={phone.href}
+                            aria-label={`Call ${h.doctor} for ${h.speciality} at ${phone.number}`}
+                            className="mt-3 inline-flex items-center gap-2 rounded-full border border-line px-3 py-1.5 font-semibold text-ink transition-colors hover:border-teal-300 hover:bg-teal-50/40"
+                          >
+                            <Phone className="h-4 w-4 text-teal-600" />
+                            {phone.number}
+                          </a>
+                        </li>
+                      );
+                    })}
                     <li className="flex items-center justify-between gap-4 py-2 text-ink-soft">
                       <span>Sunday</span>
                       <span className="shrink-0">{clinic.hours.sunday}</span>
@@ -88,27 +103,8 @@ export function Contact() {
                   </p>
                 </div>
               </div>
-            </Reveal>
-
-            <Reveal delay={0.1} className="rounded-xl3 border border-line bg-white p-7 shadow-soft">
-              <h3 className="font-semibold text-ink">Talk to us</h3>
+              <h3 className="mt-6 font-semibold text-ink">Other ways to reach us</h3>
               <ul className="mt-4 space-y-3">
-                {clinic.phones.map((p) => (
-                  <li key={p.href}>
-                    <a
-                      href={p.href}
-                      className="group flex items-center justify-between rounded-xl border border-line px-4 py-3 transition-colors hover:border-teal-300 hover:bg-teal-50/40"
-                    >
-                      <span className="flex items-center gap-3 text-sm">
-                        <Phone className="h-4 w-4 text-teal-600 transition-transform group-hover:-rotate-12" />
-                        <span>
-                          <span className="block text-[11px] uppercase tracking-wider text-muted">{p.label}</span>
-                          <span className="font-semibold text-ink">{p.number}</span>
-                        </span>
-                      </span>
-                    </a>
-                  </li>
-                ))}
                 <li>
                   <a
                     href={`mailto:${clinic.email}`}
@@ -130,10 +126,14 @@ export function Contact() {
                   </a>
                 </li>
               </ul>
-              <div className="mt-5">
-                <MagneticButton href={clinic.whatsapp} external className="w-full">
+              <div className="mt-5 space-y-3">
+                <MagneticButton href={clinic.whatsapp.dermatology} external className="w-full">
                   <MessageCircle className="h-4 w-4" />
-                  Book on WhatsApp
+                  WhatsApp Dr. Vyoma
+                </MagneticButton>
+                <MagneticButton href={clinic.whatsapp.nephrology} external className="w-full">
+                  <MessageCircle className="h-4 w-4" />
+                  WhatsApp Dr. Akash
                 </MagneticButton>
               </div>
             </Reveal>

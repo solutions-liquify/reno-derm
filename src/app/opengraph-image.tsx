@@ -61,7 +61,7 @@ export default async function OpenGraphImage() {
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 22, color: "#a6ded2" }}>
           <span>Rated 5.0 / 5 · {clinic.rating.count} Google reviews</span>
-          <span>{clinic.phones[0].number}</span>
+          <span>Dermatology {clinic.phones.dermatology.number} · Nephrology {clinic.phones.nephrology.number}</span>
         </div>
       </div>
     ),

@@ -70,7 +70,7 @@ const jsonLd = {
   url: siteUrl,
   logo: `${siteUrl}${brand.logo.src}`,
   image: `${siteUrl}/opengraph-image`,
-  telephone: clinic.phones[0].number.replace(/\s/g, ""),
+  telephone: [clinic.phones.dermatology.number, clinic.phones.nephrology.number].map((number) => number.replace(/\s/g, "")),
   email: clinic.email,
   address: {
     "@type": "PostalAddress",

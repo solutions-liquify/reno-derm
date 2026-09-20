@@ -77,8 +77,13 @@ export function Footer() {
             <address className="mt-4 space-y-2.5 text-sm not-italic text-paper/75">
               <p>{clinic.address.full}</p>
               <p>
-                <a href={clinic.phones[0].href} className="link-underline hover:text-paper">
-                  {clinic.phones[0].number}
+                Dermatology · <a href={clinic.phones.dermatology.href} className="link-underline hover:text-paper">
+                  {clinic.phones.dermatology.number}
+                </a>
+              </p>
+              <p>
+                Nephrology · <a href={clinic.phones.nephrology.href} className="link-underline hover:text-paper">
+                  {clinic.phones.nephrology.number}
                 </a>
               </p>
               <p>

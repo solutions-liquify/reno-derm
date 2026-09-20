@@ -129,18 +129,18 @@ export function Services() {
 
         <Reveal delay={0.1} className="mt-12 flex flex-col items-start justify-between gap-5 rounded-xl3 border border-line bg-white p-6 shadow-soft sm:flex-row sm:items-center sm:p-8">
           <div>
-            <p className="font-display text-2xl tracking-tight text-ink">Not sure which doctor you need?</p>
+            <p className="font-display text-2xl tracking-tight text-ink">Questions about {tab} care?</p>
             <p className="mt-1 text-sm text-ink-soft">
-              Message us with your concern and we will book you with the right specialist.
+              Reach {group.doctor} directly to ask about an appointment.
             </p>
           </div>
           <a
-            href={clinic.whatsapp}
+            href={clinic.whatsapp[tab]}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-full bg-teal-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-teal-700"
           >
-            Ask on WhatsApp
+            {tab === "dermatology" ? "WhatsApp Dr. Vyoma" : "WhatsApp Dr. Akash"}
             <ArrowUpRight className="h-4 w-4" />
           </a>
         </Reveal>
