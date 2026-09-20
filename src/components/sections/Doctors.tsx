@@ -74,7 +74,7 @@ export function Doctors() {
                       ))}
                     </ul>
 
-                    <div className="mt-6 flex flex-wrap items-start justify-between gap-4 border-t border-line pt-6">
+                    <div className="mt-6 flex flex-col items-start gap-4 border-t border-line pt-6">
                       <ul className="space-y-1.5">
                         {d.training.map((t) => (
                           <li key={t} className="flex items-center gap-2 text-xs text-muted">

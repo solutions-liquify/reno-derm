@@ -6,7 +6,6 @@ import { InstagramIcon as Instagram } from "@/components/ui/InstagramIcon";
 import { brand, clinic } from "@/data/clinic";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
-import { MagneticButton } from "@/components/ui/MagneticButton";
 
 export function Contact() {
   return (
@@ -71,6 +70,7 @@ export function Contact() {
                   <ul className="mt-2 divide-y divide-line text-sm">
                     {clinic.hours.schedule.map((h) => {
                       const phone = clinic.phones[h.phone];
+                      const whatsapp = clinic.whatsapp[h.phone];
                       return (
                         <li key={h.doctor} className="py-4 first:pt-2">
                           <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-1">
@@ -82,14 +82,26 @@ export function Contact() {
                             </span>
                             <span className="shrink-0 font-semibold text-teal-800">{h.time}</span>
                           </div>
-                          <a
-                            href={phone.href}
-                            aria-label={`Call ${h.doctor} for ${h.speciality} at ${phone.number}`}
-                            className="mt-3 inline-flex items-center gap-2 rounded-full border border-line px-3 py-1.5 font-semibold text-ink transition-colors hover:border-teal-300 hover:bg-teal-50/40"
-                          >
-                            <Phone className="h-4 w-4 text-teal-600" />
-                            {phone.number}
-                          </a>
+                          <div className="mt-3 flex flex-wrap gap-2">
+                            <a
+                              href={phone.href}
+                              aria-label={`Call ${h.doctor} for ${h.speciality} at ${phone.number}`}
+                              className="inline-flex items-center gap-2 rounded-full border border-line px-3 py-1.5 font-semibold text-ink transition-colors hover:border-teal-300 hover:bg-teal-50/40"
+                            >
+                              <Phone className="h-4 w-4 text-teal-600" />
+                              {phone.number}
+                            </a>
+                            <a
+                              href={whatsapp}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={`WhatsApp ${h.doctor} for ${h.speciality}`}
+                              className="inline-flex items-center gap-2 rounded-full border border-line px-3 py-1.5 font-semibold text-ink transition-colors hover:border-teal-300 hover:bg-teal-50/40"
+                            >
+                              <MessageCircle className="h-4 w-4 text-teal-600" />
+                              WhatsApp
+                            </a>
+                          </div>
                         </li>
                       );
                     })}
@@ -126,16 +138,6 @@ export function Contact() {
                   </a>
                 </li>
               </ul>
-              <div className="mt-5 space-y-3">
-                <MagneticButton href={clinic.whatsapp.dermatology} external className="w-full">
-                  <MessageCircle className="h-4 w-4" />
-                  WhatsApp Dr. Vyoma
-                </MagneticButton>
-                <MagneticButton href={clinic.whatsapp.nephrology} external className="w-full">
-                  <MessageCircle className="h-4 w-4" />
-                  WhatsApp Dr. Akash
-                </MagneticButton>
-              </div>
             </Reveal>
           </div>
         </div>
