@@ -26,7 +26,7 @@ export const clinic = {
     { label: "Enquiry", number: "+91 98799 43023", href: "tel:+919879943023" },
   ],
   whatsapp:
-    "https://wa.me/919426687022?text=Hi%2C%20I%20would%20like%20to%20book%20an%20appointment%20at%20RenoDerm.",
+    "https://wa.me/918849306350?text=Hi%2C%20I%20would%20like%20to%20book%20an%20appointment%20at%20RenoDerm.",
   email: "drvyoma95@gmail.com",
   hours: {
     clinic: "Mon – Sat, 3:30 PM – 8:00 PM · Sunday by appointment",
