@@ -1,13 +1,13 @@
 import Image from "next/image";
 import { ArrowUp } from "lucide-react";
 import { InstagramIcon as Instagram } from "@/components/ui/InstagramIcon";
-import { brand, clinic, navLinks } from "@/data/clinic";
+import { brand, clinic, doctors, navLinks } from "@/data/clinic";
 import { Logo } from "@/components/ui/Logo";
 
 export function Footer() {
   return (
     <footer className="relative overflow-hidden bg-ink text-paper">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-teal-400/60 to-transparent" />
+      <div className="brand-gradient-bar absolute inset-x-0 top-0 h-px" aria-hidden="true" />
       <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
@@ -82,7 +82,7 @@ export function Footer() {
                 </a>
               </p>
               <p>
-                Nephrology · <a href={clinic.phones.nephrology.href} className="link-underline hover:text-paper">
+                {doctors[1].speciality} · <a href={clinic.phones.nephrology.href} className="link-underline hover:text-paper">
                   {clinic.phones.nephrology.number}
                 </a>
               </p>

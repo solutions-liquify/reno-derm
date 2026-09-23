@@ -44,7 +44,7 @@ export function Process() {
             </Reveal>
             <Reveal delay={0.08}>
               <h2 className="mt-5 font-display text-4xl leading-[1.05] tracking-tight sm:text-5xl">
-                Simple, calm, <em className="not-italic text-apricot-300">predictable.</em>
+                Simple, calm, <em className="text-gradient-light not-italic">predictable.</em>
               </h2>
             </Reveal>
             <Reveal delay={0.16}>
@@ -59,7 +59,7 @@ export function Process() {
             <div className="absolute left-6 top-2 bottom-2 w-px bg-white/10 sm:left-7" />
             <motion.div
               style={{ height: line }}
-              className="absolute left-6 top-2 w-px bg-gradient-to-b from-teal-300 to-apricot-300 sm:left-7"
+              className="brand-gradient-line-vertical absolute left-6 top-2 w-px sm:left-7"
             />
             <ol className="space-y-8">
               {steps.map((s, i) => (

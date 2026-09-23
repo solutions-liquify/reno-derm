@@ -1,194 +1,96 @@
-"use client";
-
-import Image from "next/image";
-import { Clock, Mail, MapPin, MessageCircle, Navigation, Phone, QrCode } from "lucide-react";
-import { InstagramIcon as Instagram } from "@/components/ui/InstagramIcon";
-import { brand, clinic } from "@/data/clinic";
+import { Clock, MapPin, MessageCircle, Navigation, Phone } from "lucide-react";
+import { clinic } from "@/data/clinic";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 
 export function Contact() {
   return (
-    <section id="contact" className="relative py-24 sm:py-32">
+    <section id="contact" className="bg-paper py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <SectionHeading
-          kicker="Visit us"
-          title="Find us in Gota,"
-          accent="book in seconds."
-          align="center"
-          description="Walk-ins for enquiries are welcome during clinic hours. Consultations are by appointment so you never wait long."
-        />
+        <SectionHeading kicker="Visit us" title="Find us in Gota." />
 
-        <div className="mt-14 grid grid-cols-1 gap-6 lg:grid-cols-12">
-          {/* map */}
-          <Reveal className="flex flex-col overflow-hidden rounded-xl3 border border-line bg-white p-2 shadow-soft lg:col-span-7">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-[1.35rem] bg-paper-2 sm:aspect-[16/10] lg:aspect-auto lg:min-h-[28rem] lg:flex-1">
-              <iframe
-                title="RenoDerm clinic location on Google Maps"
-                src={clinic.maps.embed}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-                className="absolute inset-0 h-full w-full border-0 grayscale-[20%] transition-[filter] duration-500 hover:grayscale-0"
-              />
+        <div className="mt-8 grid gap-5 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-stretch">
+          <div className="space-y-5">
+            <Reveal className="overflow-hidden rounded-xl3 border border-line bg-white p-5 shadow-soft sm:p-7">
+              <div className="flex items-center gap-3 text-teal-700">
+                <MapPin className="h-5 w-5 shrink-0" aria-hidden="true" />
+                <h3 className="text-sm font-semibold uppercase tracking-[0.12em]">RenoDerm clinic</h3>
+              </div>
+              <p className="mt-4 max-w-md text-base font-medium leading-relaxed text-ink">
+                {clinic.address.line1}, {clinic.address.line2}, {clinic.address.area}, {clinic.address.city}, {clinic.address.state} {clinic.address.pincode}
+              </p>
               <a
                 href={clinic.maps.directions}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full bg-ink/90 px-4 py-2.5 text-sm font-semibold text-paper shadow-lift backdrop-blur transition-colors hover:bg-teal-700"
+                className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-full bg-teal-700 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-teal-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700"
               >
-                <Navigation className="h-4 w-4" />
+                <Navigation className="h-4 w-4" aria-hidden="true" />
                 Get directions
               </a>
-            </div>
-          </Reveal>
-
-          {/* details */}
-          <div className="grid grid-cols-1 gap-6 lg:col-span-5">
-            <Reveal delay={0.05} className="rounded-xl3 border border-line bg-white p-7 shadow-soft">
-              <div className="flex items-start gap-4">
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-teal-50 text-teal-700 ring-1 ring-teal-100">
-                  <MapPin className="h-5 w-5" />
-                </span>
-                <div>
-                  <h3 className="font-semibold text-ink">Address</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-ink-soft">
-                    {clinic.address.line1}, {clinic.address.line2},<br />
-                    {clinic.address.area}, {clinic.address.city}, {clinic.address.state} {clinic.address.pincode}
-                  </p>
-                </div>
-              </div>
             </Reveal>
 
-            <Reveal delay={0.1} className="rounded-xl3 border border-line bg-white p-7 shadow-soft">
-              <div className="flex items-start gap-4">
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-teal-50 text-teal-700 ring-1 ring-teal-100">
-                  <Clock className="h-5 w-5" />
-                </span>
-                <div className="w-full">
-                  <h3 className="font-semibold text-ink">Hours</h3>
-                  <ul className="mt-2 divide-y divide-line text-sm">
-                    {clinic.hours.schedule.map((h) => {
-                      const phone = clinic.phones[h.phone];
-                      const whatsapp = clinic.whatsapp[h.phone];
-                      return (
-                        <li key={h.doctor} className="py-4 first:pt-2">
-                          <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-1">
-                            <span>
-                              <span className="block font-semibold text-ink">{h.doctor}</span>
-                              <span className="block text-xs text-muted">
-                                {h.speciality} · {h.days}
-                              </span>
-                            </span>
-                            <span className="shrink-0 font-semibold text-teal-800">{h.time}</span>
-                          </div>
-                          <div className="mt-3 flex flex-wrap gap-2">
-                            <a
-                              href={phone.href}
-                              aria-label={`Call ${h.doctor} for ${h.speciality} at ${phone.number}`}
-                              className="inline-flex items-center gap-2 rounded-full border border-line px-3 py-1.5 font-semibold text-ink transition-colors hover:border-teal-300 hover:bg-teal-50/40"
-                            >
-                              <Phone className="h-4 w-4 text-teal-600" />
-                              {phone.number}
-                            </a>
-                            <a
-                              href={whatsapp}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              aria-label={`WhatsApp ${h.doctor} for ${h.speciality}`}
-                              className="inline-flex items-center gap-2 rounded-full border border-line px-3 py-1.5 font-semibold text-ink transition-colors hover:border-teal-300 hover:bg-teal-50/40"
-                            >
-                              <MessageCircle className="h-4 w-4 text-teal-600" />
-                              WhatsApp
-                            </a>
-                          </div>
-                        </li>
-                      );
-                    })}
-                    <li className="flex items-center justify-between gap-4 py-2 text-ink-soft">
-                      <span>Sunday</span>
-                      <span className="shrink-0">{clinic.hours.sunday}</span>
-                    </li>
-                  </ul>
-                  <p className="mt-3 rounded-xl bg-apricot-50 px-3 py-2 text-xs leading-relaxed text-apricot-600 ring-1 ring-apricot-100">
-                    {clinic.hours.note}
-                  </p>
-                </div>
+            <Reveal delay={0.05} className="overflow-hidden rounded-xl3 border border-line bg-white p-5 shadow-soft sm:p-7">
+              <div className="flex items-center gap-3 text-teal-700">
+                <Clock className="h-5 w-5 shrink-0" aria-hidden="true" />
+                <h3 className="text-sm font-semibold uppercase tracking-[0.12em]">Consultation hours</h3>
               </div>
-              <h3 className="mt-6 font-semibold text-ink">Other ways to reach us</h3>
-              <ul className="mt-4 space-y-3">
-                <li>
-                  <a
-                    href={`mailto:${clinic.email}`}
-                    className="group flex items-center gap-3 rounded-xl border border-line px-4 py-3 text-sm transition-colors hover:border-teal-300 hover:bg-teal-50/40"
-                  >
-                    <Mail className="h-4 w-4 text-teal-600" />
-                    <span className="font-semibold text-ink">{clinic.email}</span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={clinic.social.instagramClinic}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center gap-3 rounded-xl border border-line px-4 py-3 text-sm transition-colors hover:border-teal-300 hover:bg-teal-50/40"
-                  >
-                    <Instagram className="h-4 w-4 text-teal-600" />
-                    <span className="font-semibold text-ink">@renodermclinic</span>
-                  </a>
-                </li>
+              <ul className="mt-2 divide-y divide-line">
+                {clinic.hours.schedule.map((schedule) => {
+                  const phone = clinic.phones[schedule.phone];
+                  return (
+                    <li key={schedule.doctor} className="py-4 last:pb-2">
+                      <p className="font-semibold text-ink">{schedule.doctor}</p>
+                      <p className="mt-0.5 text-xs text-muted">{schedule.speciality}</p>
+                      <p className="mt-2 text-sm text-ink-soft">{schedule.days} · {schedule.time}</p>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        <a
+                          href={phone.href}
+                          aria-label={`Call ${schedule.doctor} for ${schedule.speciality} at ${phone.number}`}
+                          className="inline-flex min-h-10 items-center gap-2 rounded-full border border-line px-3 py-2 text-xs font-semibold text-ink transition-colors hover:border-teal-300 hover:bg-teal-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700 sm:text-sm"
+                        >
+                          <Phone className="h-4 w-4 text-teal-700" aria-hidden="true" />
+                          {phone.number}
+                        </a>
+                        <a
+                          href={clinic.whatsapp[schedule.phone]}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`WhatsApp ${schedule.doctor} for ${schedule.speciality}`}
+                          className="inline-flex min-h-10 items-center gap-2 rounded-full border border-line px-3 py-2 text-xs font-semibold text-ink transition-colors hover:border-teal-300 hover:bg-teal-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700 sm:text-sm"
+                        >
+                          <MessageCircle className="h-4 w-4 text-teal-700" aria-hidden="true" />
+                          WhatsApp
+                        </a>
+                      </div>
+                    </li>
+                  );
+                })}
               </ul>
+              <p className="border-t border-line pt-3 text-xs text-muted sm:text-sm">
+                Sunday consultations are on an appointment basis.
+              </p>
             </Reveal>
           </div>
-        </div>
 
-        {/* Instagram QR */}
-        <div className="mt-6">
-          <Reveal className="rounded-xl3 border border-line bg-gradient-to-br from-teal-800 to-ink p-7 text-paper shadow-soft sm:p-10">
-            <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-12">
-              <div className="md:col-span-7">
-                <span className="inline-flex items-center gap-2 self-start rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-teal-100">
-                  <QrCode className="h-3.5 w-3.5" />
-                  Instagram
-                </span>
-                <h3 className="mt-4 font-display text-2xl leading-tight tracking-tight sm:text-3xl">
-                  Scan to follow {brand.instagramQr.handle}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-teal-100/85">
-                  Skin tips, kidney health explainers and clinic updates. Point your phone camera at the code.
-                </p>
-                <div className="mt-6 flex text-sm">
-                  <a
-                    href={clinic.social.instagramClinic}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 font-semibold text-ink shadow-lift transition-colors hover:bg-teal-100"
-                  >
-                    <Instagram className="h-4 w-4" />
-                    Open Instagram
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex justify-center md:col-span-5 md:justify-end">
-                <a
-                  href={clinic.social.instagramClinic}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Open ${brand.instagramQr.handle} on Instagram`}
-                  className="rounded-2xl bg-white p-3 shadow-lift transition-transform duration-300 hover:scale-[1.03]"
-                >
-                  <Image
-                    src={brand.instagramQr.image.src}
-                    alt={`QR code linking to ${brand.instagramQr.handle} on Instagram`}
-                    width={brand.instagramQr.image.width}
-                    height={brand.instagramQr.image.height}
-                    sizes="200px"
-                    className="h-52 w-auto sm:h-60"
-                  />
-                </a>
-              </div>
-            </div>
+          <Reveal delay={0.1} className="relative h-64 overflow-hidden rounded-xl3 border border-line bg-paper-2 p-2 shadow-soft sm:h-80 lg:h-full lg:min-h-[32rem]">
+            <iframe
+              title="RenoDerm clinic location on Google Maps"
+              src={clinic.maps.embed}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+              className="h-full w-full rounded-[1.35rem] border-0"
+            />
+            <a
+              href={clinic.maps.directions}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute bottom-5 left-5 inline-flex min-h-10 items-center gap-2 rounded-full bg-teal-800 px-4 py-2 text-sm font-semibold text-white shadow-soft transition-colors hover:bg-teal-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-800"
+            >
+              <Navigation className="h-4 w-4" aria-hidden="true" />
+              Open in Google Maps
+            </a>
           </Reveal>
         </div>
       </div>

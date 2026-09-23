@@ -40,7 +40,7 @@ export function Navbar() {
   return (
     <>
       <motion.div
-        className="fixed left-0 top-0 z-[60] h-[3px] w-full origin-left bg-gradient-to-r from-teal-500 via-teal-400 to-apricot-400"
+        className="brand-gradient-bar fixed left-0 top-0 z-[60] h-[3px] w-full origin-left"
         style={{ scaleX: scrollYProgress }}
       />
       <motion.header

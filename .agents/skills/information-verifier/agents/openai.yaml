@@ -1,0 +1,4 @@
+interface:
+  display_name: "Information Verifier"
+  short_description: "Confirm factual website updates before editing"
+  default_prompt: "Use $information-verifier to safely update factual information on this website."

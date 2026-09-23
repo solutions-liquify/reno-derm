@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Check, GraduationCap, Phone } from "lucide-react";
 import { InstagramIcon as Instagram } from "@/components/ui/InstagramIcon";
@@ -21,8 +22,7 @@ export function Doctors() {
 
         <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-2">
           {doctors.map((d, i) => {
-            const isDerm = d.speciality === "Dermatology";
-            const phone = isDerm ? clinic.phones.dermatology : clinic.phones.nephrology;
+            const phone = d.speciality === "Dermatology" ? clinic.phones.dermatology : clinic.phones.nephrology;
             return (
               <Reveal key={d.slug} delay={i * 0.12}>
                 <motion.article
@@ -30,32 +30,23 @@ export function Doctors() {
                   transition={{ type: "spring", stiffness: 260, damping: 22 }}
                   className="group relative h-full overflow-hidden rounded-xl3 border border-line bg-white shadow-soft transition-shadow duration-300 hover:shadow-lift"
                 >
-                  {/* header band */}
-                  <div
-                    className={`relative overflow-hidden p-7 sm:p-8 ${
-                      isDerm
-                        ? "bg-gradient-to-br from-apricot-100 via-apricot-50 to-white"
-                        : "bg-gradient-to-br from-teal-100 via-teal-50 to-white"
-                    }`}
-                  >
-                    <div
-                      className={`absolute -right-10 -top-10 h-40 w-40 rounded-full blur-2xl transition-transform duration-700 group-hover:scale-125 ${
-                        isDerm ? "bg-apricot-300/50" : "bg-teal-300/50"
-                      }`}
-                    />
-                    <div className="relative flex items-center gap-5">
-                      <div
-                        className={`flex h-20 w-20 shrink-0 items-center justify-center rounded-3xl font-display text-2xl shadow-soft ${
-                          isDerm ? "bg-apricot-400 text-white" : "bg-teal-600 text-white"
-                        }`}
-                      >
-                        {d.initials}
-                      </div>
-                      <div>
-                        <span className="kicker">{d.speciality}</span>
-                        <h3 className="mt-2 font-display text-2xl tracking-tight text-ink sm:text-3xl">{d.name}</h3>
-                        <p className="mt-1 text-sm font-medium text-ink-soft">{d.degrees}</p>
-                      </div>
+                  <div className="brand-gradient-soft relative flex min-h-60 overflow-hidden border-b border-line sm:min-h-64">
+                    <div className="brand-gradient-bar absolute inset-x-0 top-0 h-1" aria-hidden="true" />
+                    <div className="absolute inset-y-0 right-0 w-[47%] [mask-image:radial-gradient(ellipse_100%_85%_at_80%_38%,black_35%,transparent_100%)] sm:w-[38%] sm:[mask-image:linear-gradient(to_right,transparent_0%,black_28%)]">
+                      <Image
+                        src={d.photo}
+                        alt={`Portrait of ${d.name}`}
+                        fill
+                        sizes="(min-width: 1280px) 230px, (min-width: 1024px) 19vw, (min-width: 640px) 38vw, 47vw"
+                        loading="eager"
+                        className={`object-cover object-top ${d.slug === "dr-vyoma-mehta-dholakia" ? "scale-[1.1] sm:translate-y-3 sm:scale-[1.18]" : "sm:origin-bottom-right sm:scale-[0.9]"}`}
+                      />
+                    </div>
+                    <div className="relative z-10 flex w-full min-w-0 flex-col justify-center px-5 py-6 sm:w-[72%] sm:px-7">
+                      <span className="mb-4 h-1 w-10 rounded-full bg-apricot-400" aria-hidden="true" />
+                      <p className="whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.08em] text-teal-700">{d.speciality}</p>
+                      <h3 className="mt-3 whitespace-nowrap font-display text-[clamp(0.85rem,3.75vw,1rem)] leading-tight tracking-tight text-ink sm:text-[clamp(1.3rem,2.15vw,1.85rem)]">{d.name}</h3>
+                      <p className="mt-3 max-w-[60%] text-xs font-medium leading-relaxed text-ink-soft sm:max-w-none sm:text-sm">{d.degrees}</p>
                     </div>
                   </div>
 

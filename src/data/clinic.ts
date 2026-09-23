@@ -33,7 +33,7 @@ export const clinic = {
   },
   email: "drvyoma95@gmail.com",
   hours: {
-    clinic: "Mon – Sat, 3:30 PM – 8:00 PM · Sunday by appointment",
+    clinic: "Mon – Sat, 3:30 PM - 8:00 PM · Sunday by appointment",
     note: "Sunday consultations are on an appointment basis. Call or WhatsApp to confirm a slot.",
     /** Per-doctor consulting hours, Monday to Saturday. */
     schedule: [
@@ -42,21 +42,21 @@ export const clinic = {
         speciality: "Dermatology",
         phone: "dermatology",
         days: "Mon – Sat",
-        time: "3:30 PM – 8:00 PM",
-        short: "Mon–Sat · 3:30–8 PM",
+        time: "3:30 PM - 8:00 PM",
+        short: "Mon–Sat · 3:30 PM - 8:00 PM",
       },
       {
         doctor: "Dr. Akash Dholakia",
-        speciality: "Nephrology",
+        speciality: "Nephrology & General Medicine",
         phone: "nephrology",
         days: "Mon – Sat",
-        time: "6:00 PM – 8:00 PM",
-        short: "Mon–Sat · 6–8 PM",
+        time: "6:00 PM - 8:00 PM",
+        short: "Mon–Sat · 6:00 PM - 8:00 PM",
       },
     ],
     sunday: "Appointment basis",
   },
-  rating: { value: 5.0, count: 29, source: "Google" },
+  rating: { value: 5.0, source: "Google" },
   maps: {
     directions: "https://maps.google.com/?cid=11094565210879821662",
     embed:
@@ -83,10 +83,10 @@ export const brand = {
 export type Doctor = {
   slug: string;
   name: string;
-  initials: string;
+  photo: string;
   role: string;
   degrees: string;
-  speciality: "Dermatology" | "Nephrology";
+  speciality: "Dermatology" | "Nephrology & General Medicine";
   bio: string;
   highlights: string[];
   training: string[];
@@ -97,7 +97,7 @@ export const doctors: Doctor[] = [
   {
     slug: "dr-vyoma-mehta-dholakia",
     name: "Dr. Vyoma Mehta Dholakia",
-    initials: "VM",
+    photo: "/doctors/dr-vyoma-mehta-dholakia.png",
     role: "Consultant Dermatologist & Cosmetologist",
     degrees: "M.D. (Skin & V.D.)",
     speciality: "Dermatology",
@@ -117,10 +117,10 @@ export const doctors: Doctor[] = [
   {
     slug: "dr-akash-dholakia",
     name: "Dr. Akash Dholakia",
-    initials: "AD",
+    photo: "/doctors/dr-akash-dholakia.png",
     role: "Consultant Nephrologist & Kidney Transplant Physician",
-    degrees: "M.D. (General Medicine), DrNB (Nephrology)",
-    speciality: "Nephrology",
+    degrees: "DrNB (Nephrology), M.D. (General Medicine)",
+    speciality: "Nephrology & General Medicine",
     bio: "Dr. Akash manages the full spectrum of kidney disease, from early hypertension and diabetes-related kidney risk through chronic kidney disease, dialysis and transplant care. He trained at Muljibhai Patel Urological Hospital (MPUH), Nadiad, one of India's leading kidney institutes.",
     highlights: [
       "Chronic kidney disease & dialysis care",
@@ -152,7 +152,7 @@ export type ServiceGroup = {
 /** Services as printed on the clinic's service board and Dr. Akash's practice poster. */
 export const services: Record<"dermatology" | "nephrology", ServiceGroup> = {
   dermatology: {
-    heading: "Dermatology",
+    heading: "Dermatology Services and Treatments",
     doctor: "Dr. Vyoma Mehta Dholakia",
     intro:
       "Medical, surgical and aesthetic care for skin, hair and nails with Dr. Vyoma Mehta Dholakia, M.D. (Skin & V.D.).",
@@ -182,12 +182,13 @@ export const services: Record<"dermatology" | "nephrology", ServiceGroup> = {
           { title: "Microneedling", desc: "Collagen induction for scars, open pores and texture.", icon: "Layers" },
           { title: "Skin Boosters", desc: "Injectable hydration for glow and elasticity.", icon: "Gem" },
           { title: "Chemical Peels", desc: "Graded peels for tone, texture and radiance.", icon: "Feather" },
+          { title: "Microblading & Micropigmentation", desc: "Semi-permanent makeup using microblading and micropigmentation.", icon: "Brush" },
         ],
       },
     ],
   },
   nephrology: {
-    heading: "Nephrology",
+    heading: "Nephrology & General Medicine Services and Treatments",
     doctor: "Dr. Akash Dholakia",
     intro:
       "Kidney care from early risk through dialysis and transplant, plus general medicine, with Dr. Akash Dholakia, M.D., DrNB (Nephrology).",
@@ -223,7 +224,6 @@ export const services: Record<"dermatology" | "nephrology", ServiceGroup> = {
 
 export const stats = [
   { value: 5.0, suffix: "", label: "Google rating", decimals: 1 },
-  { value: 29, suffix: "+", label: "Five-star reviews", decimals: 0 },
   { value: 2, suffix: "", label: "Specialists, one roof", decimals: 0 },
   { value: 6, suffix: " days", label: "A week, Sundays by appointment", decimals: 0 },
 ];
@@ -284,7 +284,7 @@ export const reviews: Review[] = [
 export const faqs = [
   {
     q: "Do I need an appointment?",
-    a: "Yes. Dr. Vyoma (dermatology) consults Monday to Saturday, 3:30 PM to 8:00 PM, and Dr. Akash (nephrology) Monday to Saturday, 6:00 PM to 8:00 PM. Sundays are on an appointment basis. Call or WhatsApp us and we will confirm a slot, usually the same or next day.",
+    a: "Yes. Dr. Vyoma (Dermatology) consults Monday to Saturday, 3:30 PM - 8:00 PM, and Dr. Akash (Nephrology & General Medicine) Monday to Saturday, 6:00 PM - 8:00 PM. Sundays are on an appointment basis. Call or WhatsApp us and we will confirm a slot, usually the same or next day.",
   },
   {
     q: "Can I see both doctors in one visit?",
@@ -309,7 +309,6 @@ export const faqs = [
 ];
 
 export const navLinks = [
-  { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
   { label: "Doctors", href: "#doctors" },
   { label: "Reviews", href: "#reviews" },

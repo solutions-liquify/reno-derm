@@ -88,13 +88,7 @@ const jsonLd = {
       closes: "20:00",
     },
   ],
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: clinic.rating.value,
-    reviewCount: clinic.rating.count,
-    bestRating: 5,
-  },
-  medicalSpecialty: ["Dermatology", "Nephrology"],
+  medicalSpecialty: ["Dermatology", "Nephrology", "General Medicine"],
   sameAs: [clinic.social.instagramClinic, clinic.social.instagramDoctor, clinic.maps.directions],
   employee: doctors.map((d) => ({
     "@type": "Physician",

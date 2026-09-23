@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { brand, clinic } from "@/data/clinic";
+import { brand, clinic, doctors } from "@/data/clinic";
 
 export const alt = clinic.fullName;
 export const size = { width: 1200, height: 630 };
@@ -60,8 +60,8 @@ export default async function OpenGraphImage() {
           </div>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 22, color: "#a6ded2" }}>
-          <span>Rated 5.0 / 5 · {clinic.rating.count} Google reviews</span>
-          <span>Dermatology {clinic.phones.dermatology.number} · Nephrology {clinic.phones.nephrology.number}</span>
+          <span>Rated {clinic.rating.value.toFixed(1)} / 5 on Google</span>
+          <span>Dermatology {clinic.phones.dermatology.number} · {doctors[1].speciality} {clinic.phones.nephrology.number}</span>
         </div>
       </div>
     ),

@@ -62,6 +62,8 @@
 
 :root {
   color-scheme: light;
+  --brand-gradient: linear-gradient(105deg, var(--color-teal-700), var(--color-teal-400) 55%, var(--color-apricot-400));
+  --brand-text-gradient: linear-gradient(105deg, var(--color-teal-700), var(--color-teal-600) 50%, var(--color-apricot-600));
 }
 
 html {
@@ -104,10 +106,29 @@ body {
 
 /* Text gradient */
 .text-gradient {
-  background: linear-gradient(100deg, var(--color-teal-600), var(--color-teal-400) 45%, var(--color-apricot-400));
+  background: var(--brand-text-gradient);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+.text-gradient-light {
+  background: linear-gradient(105deg, var(--color-teal-100), var(--color-teal-200) 50%, var(--color-apricot-300));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.brand-gradient-bar {
+  background: var(--brand-gradient);
+}
+
+.brand-gradient-soft {
+  background: linear-gradient(135deg, var(--color-teal-50), var(--color-apricot-50));
+}
+
+.brand-gradient-line-vertical {
+  background: linear-gradient(to bottom, var(--color-teal-300), var(--color-apricot-300));
 }
 
 /* Pill/kicker */
@@ -162,6 +183,10 @@ body {
   mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
 }
 
+.review-carousel:focus-within .review-track {
+  animation-play-state: paused;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -170,5 +195,9 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .review-track {
+    animation: none !important;
   }
 }
